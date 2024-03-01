@@ -1,0 +1,134 @@
+<div>
+    <div class="container  d-flex justify-content-center">
+        <div class="card mt-5 col-6">
+            @if(message){
+            <div class="alert alert-success text-center" role="alert">
+                {{message}}
+              </div>
+            }
+            <div class="card-header ">
+                <h3>Student create
+                    <a routerLink="/students" class="btn btn-secondary float-end">Back</a>
+                    <!-- <button  class="btn btn-secondary " (click)="openSpinner()">Open Spinner</button> -->
+                </h3>
+            </div>  
+            <div class="card-body">
+                <div *ngIf="isLoading; else elseForm"> 
+                    <app-loader :title={{loadingTitle}}/>
+                </div>
+                <ng-template #elseForm>
+                      <!-- <form [formGroup]="userForms" (submit)="saveStudent()"> -->
+                    <!-- OR -->
+                    <!-- studentForms is the form name that we initialize in comp.js  -->
+                <form [formGroup]="studentForms" >  
+                    <div class="mb-4 form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" formControlName="name" name="name" class="form-control">
+                        <!-- @if(f.name.errors && (f.name.touched || f.name.dirty )){ -->
+                        @if(f.name.errors && submitted ){
+                            <div>
+                                @if(submitted && f.name.errors.required){
+                                    <span class="text-danger">Name field is required</span>
+                                }
+                                @if(submitted && f.name.errors.pattern){
+                                    <span class="text-danger">Name should start with alphabet</span>
+                                }
+                            </div>
+                        }
+                       
+                    </div>
+                    <div class="mb-4 form-group">
+                        <label for="email">Email:</label>
+                        <input type="text" formControlName="email" name="email" class="form-control">
+                        <!-- @if(f.email.errors && f.email.touched){ -->
+                        @if(f.email.errors && submitted ){
+                            <div>
+                                @if(f.email.errors.required){
+                                    <span class="text-danger">Email field is required</span>
+                                }@if(f.email.errors.email){
+                                    <span class="text-danger">Enter valid email address</span>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <div class="mb-4 form-group">
+                        <label for="course">Course:</label>
+                        <input type="text" formControlName="course" name="course" class="form-control">
+                        <!-- @if(f.course.errors && f.course.touched){ -->
+                        @if(f.course.errors && submitted ){
+                            <div>
+                                @if(f.course.errors.required){
+                                    <span class="text-danger">Course field is required</span>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <div class="mb-4 form-group">
+                        <label for="phone">Phone:</label>
+                        <input type="text" formControlName="phone" class="form-control">
+                        <!-- @if(f.phone.errors && f.phone.touched){ -->
+                        @if(submitted && f.phone.errors ){
+                            <div>
+                                @if(submitted && f.phone.errors.required){
+                                    <span class="text-danger">Phone field is required</span>
+                                }
+                                @if(submitted && f.phone.errors.pattern){
+                                    <span class="text-danger">Phone no should be in numbers</span>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <div class="mb-4 form-group">
+                        <label for="image">Image:</label>
+                        <input type="file" formControlName="image" (change)="imageUpload($event)" class="form-control">
+                        <!-- @if(f.image.errors && f.image.touched){ -->
+                        @if(submitted && f.image.errors ){
+                            <div>
+                                @if(submitted && f.image.errors.required){
+                                    <span class="text-danger">Image field is required</span>
+                                }
+                              
+                            </div>
+                        }
+                    </div>
+                    <div class="mb-4 form-group">
+                        <button type="submit"  class="btn btn-success" (click)="saveStudent()">Save</button>
+                        <!-- OR -->
+                        <!-- <button type="submit" [disabled]="studentForms.invalid" class="btn btn-success" (click)="saveStudent()">Save</button> -->
+                    </div>
+
+                </form>
+                </ng-template>
+              
+
+                <!-- Template Form -->
+                <!-- <form (ngSubmit)="saveStudent()">
+                    <div class="mb-4 form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" [(ngModel)]="name" name="name"  class="form-control">
+                       
+                        <span class="text-danger">{{errors.name}}</span>
+                    </div>
+                    <div class="mb-4 form-group">
+                        <label for="email">Email:</label>
+                        <input type="text" [(ngModel)]="email" name="email"  class="form-control">
+                        <span class="text-danger">{{errors.email}}</span>
+                    </div>
+                    <div class="mb-4 form-group">
+                        <label for="course">Course:</label>
+                        <input type="text" [(ngModel)]="course" name="course"  class="form-control">
+                        <span  class="text-danger">{{errors.course}}</span>
+                    </div>
+                    <div class="mb-4 form-group">
+                        <label for="phone">Phone:</label>
+                        <input type="text" [(ngModel)]="phone" name="phone"  class="form-control">
+                    </div>
+                    <div class="mb-4 form-group">
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+
+                </form> -->
+            </div>  
+        </div>
+    </div>
+</div>
